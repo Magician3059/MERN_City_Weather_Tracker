@@ -1,4 +1,3 @@
-import React from 'react';
 import { addFavorite } from '../services/api';
 
 const WeatherDisplay = ({ weather, onFavoriteAdded }) => {
@@ -8,28 +7,26 @@ const WeatherDisplay = ({ weather, onFavoriteAdded }) => {
     try {
       await addFavorite(weather.name, weather.sys.country);
       alert(`${weather.name} added to favorites!`);
-      if (onFavoriteAdded) onFavoriteAdded(); // optional callback to refresh list
-      
-       
+      if (onFavoriteAdded) onFavoriteAdded();
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to add favorite');
     }
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <h2>{weather.name}, {weather.sys.country}</h2>
-      <p>Temperature: {weather.main.temp}°C</p>
-      <p>Humidity: {weather.main.humidity}%</p>
-      <p>Wind: {weather.wind.speed} m/s</p>
-      <p>Weather: {weather.weather[0].description}</p>
-
-      <button 
-        onClick={handleAddFavorite} 
-        style={{ marginTop: '10px', padding: '8px 15px', cursor: 'pointer' }}
-      >
-        Add to Favorites
-      </button>
+    <div className="card shadow mb-4">
+      <div className="card-header bg-primary text-white">
+        <h3 className="mb-0">{weather.name}, {weather.sys.country}</h3>
+      </div>
+      <div className="card-body">
+        <p><strong>Temperature:</strong> {weather.main.temp}°C</p>
+        <p><strong>Humidity:</strong> {weather.main.humidity}%</p>
+        <p><strong>Wind:</strong> {weather.wind.speed} m/s</p>
+        <p><strong>Weather:</strong> {weather.weather[0].description}</p>
+        <button className="btn btn-success mt-3" onClick={handleAddFavorite}>
+          Add to Favorites
+        </button>
+      </div>
     </div>
   );
 };

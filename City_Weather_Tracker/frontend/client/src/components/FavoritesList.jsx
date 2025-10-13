@@ -19,16 +19,25 @@ const FavoritesList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Favorites</h2>
-      <ul>
-        {favorites.map(fav => (
-          <li key={fav._id}>
+    <div className="card shadow mt-4">
+      <div className="card-header bg-primary text-white">
+        <h3 className="mb-0">Favorites</h3>
+      </div>
+      <ul className="list-group list-group-flush">
+        {favorites.map((fav) => (
+          <li key={fav._id} className="list-group-item d-flex justify-content-between align-items-center">
             {fav.city}, {fav.country}
-            <button onClick={() => handleDelete(fav._id)}>Delete</button>
+            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(fav._id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
+      {favorites.length === 0 && (
+        <div className="card-body">
+          <p className="text-muted text-center mb-0">No favorite cities yet.</p>
+        </div>
+      )}
     </div>
   );
 };
