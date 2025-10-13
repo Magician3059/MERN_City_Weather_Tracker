@@ -1,0 +1,23 @@
+import axios from 'axios';
+
+const API_BASE = 'http://localhost:5000/api';
+
+export const fetchWeather = async (city) => {
+  const { data } = await axios.get(`${API_BASE}/weather?q=${city}`);
+  return data;
+};
+
+export const getFavorites = async () => {
+  const { data } = await axios.get(`${API_BASE}/favorites`);
+  return data;
+};
+
+export const addFavorite = async (city, country) => {
+  const { data } = await axios.post(`${API_BASE}/favorites`, { city, country });
+  return data;
+};
+
+export const deleteFavorite = async (id) => {
+  const { data } = await axios.delete(`${API_BASE}/favorites/${id}`);
+  return data;
+};
