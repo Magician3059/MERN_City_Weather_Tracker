@@ -1,5 +1,6 @@
 import { useEffect, useState ,useCallback} from 'react';
 import { getFavorites, deleteFavorite } from '../services/api';
+import { toast } from 'react-toastify';
 
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState([]);
@@ -55,9 +56,10 @@ const FavoritesList = () => {
 const handleDelete = useCallback(async (id) => {
   try {
     await deleteFavorite(id);
+    toast.success('City removed from favorites'); // ✅ toast
     fetchFavs(currentPage); // refresh current page
   } catch (err) {
-    console.error('Error deleting favorite:', err);
+    toast.error('Error deleting favorite:', err);
   }
 }, [currentPage]);// dependencies 
 
@@ -77,17 +79,18 @@ const handleDelete = useCallback(async (id) => {
         <h3 className="mb-0">Favorites</h3>
       </div>
 
+{/* Conditional Rendering */}
       {loading ? (
         <div className="card-body text-center">
           <p className="text-muted mb-0">Loading favorites...</p>
         </div>
       ) : favorites.length === 0 ? (
         <div className="card-body text-center">
-          <p className="text-muted mb-0">No favorite cities yet.</p>
+          <p className="text-muted mb-0">No favorite cities yet.</p>  
         </div>
       ) : (
         <ul className="list-group list-group-flush">
-          {(favorites || []).map((fav) => (
+          {(favorites || []).map((fav) => (     // handle null or undefined
             <li
               key={fav._id}
               className="list-group-item d-flex justify-content-between align-items-center"

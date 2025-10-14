@@ -1,4 +1,6 @@
 import { addFavorite } from '../services/api';
+import { toast } from 'react-toastify';
+
 
 const WeatherDisplay = ({ weather, onFavoriteAdded }) => {
   if (!weather) return null;
@@ -6,10 +8,11 @@ const WeatherDisplay = ({ weather, onFavoriteAdded }) => {
   const handleAddFavorite = async () => {
     try {
       await addFavorite(weather.name, weather.sys.country);
-      alert(`${weather.name} added to favorites!`);
-      if (onFavoriteAdded) onFavoriteAdded();
+      toast.success(`${weather.name} added to favorites`); // show success message using react-toastify
+      // call callback to refresh favorites list if provided
+      // if (onFavoriteAdded) onFavoriteAdded();
     } catch (err) {
-      alert(err.response?.data?.error || 'Failed to add favorite');
+      toast.error(err.response?.data?.error || 'Failed to add favorite');
     }
   };
 

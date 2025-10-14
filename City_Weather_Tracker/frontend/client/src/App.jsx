@@ -2,6 +2,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import React from 'react';
 import Home from './pages/Home';
 import FavoritesList from './components/FavoritesList';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // import toastify styles
 
 function App() {
   return (
@@ -28,6 +30,19 @@ function App() {
           <Route path="/favorites" element={<FavoritesList />} />
         </Routes>
       </div>
+
+      {/* 🔔 ToastContainer (placed once globally) */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 }

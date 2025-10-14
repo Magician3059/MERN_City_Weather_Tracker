@@ -21,7 +21,7 @@ const Home = () => {
       {weather && (
         <div className="row justify-content-center">
           <div className="col-md-6">
-            <WeatherDisplay weather={weather} />
+            <WeatherDisplay weather={weather} />  
           </div>
         </div>
       )}
