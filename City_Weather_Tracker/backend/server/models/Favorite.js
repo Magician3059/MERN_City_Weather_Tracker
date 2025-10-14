@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const favoriteSchema = new mongoose.Schema({
-  city: { type: String, required: true, unique: true },  // City name
+  city: { type: String, required: true, index: true }, // 👈 adds index -> City name
   country: String,                                        // Country code
   savedAt: { type: Date, default: Date.now }             // Timestamp
 });

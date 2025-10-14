@@ -1,14 +1,27 @@
 import { getAllFavorites, addFavorite, deleteFavorite } from '../services/favoriteService.js';
 
+// export const getFavorites = async (req, res) => {
+//   try {
+//     const favs = await getAllFavorites();
+//     res.json(favs);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+// implement pagination support
 export const getFavorites = async (req, res) => {
+  const page = req.query.page;      // string
+  const limit = req.query.limit;    // optional
   try {
-    const favs = await getAllFavorites();
+    const favs = await getAllFavorites(page, limit);
     res.json(favs);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
+
+//-------------------------------------------------------------
 export const addFavoriteController = async (req, res) => {
   const { city, country } = req.body;
   try {

@@ -7,11 +7,25 @@ export const fetchWeather = async (city) => {
   return data;
 };
 
-export const getFavorites = async () => {
-  const { data } = await axios.get(`${API_BASE}/favorites`);
-  return data;
+// export const getFavorites = async () => {
+//   const { data } = await axios.get(`${API_BASE}/favorites`);
+//   return data;
+// };
+// pagination
+export const getFavorites = async (page = 1) => {
+  try {
+    const res = await axios.get(`${API_BASE}/favorites?page=${page}`); // use API_BASE
+    if (res.data && res.data.data) {
+      return res.data; // paginated response
+    }
+    return res.data || []; // fallback for old behavior
+  } catch (err) {
+    console.error('API error:', err);
+    return [];
+  }
 };
 
+//---------------------------------------------------------------------
 export const addFavorite = async (city, country) => {
   const { data } = await axios.post(`${API_BASE}/favorites`, { city, country });
   return data;
