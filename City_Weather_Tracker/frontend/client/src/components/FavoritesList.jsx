@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useCallback} from 'react';
 import { getFavorites, deleteFavorite } from '../services/api';
 
 const FavoritesList = () => {
@@ -39,16 +39,29 @@ const FavoritesList = () => {
     }
   };
 
-  // Delete a favorite city
-  const handleDelete = async (id) => {
-    try {
-      await deleteFavorite(id);
-      // refresh current page
-      fetchFavs(currentPage);
-    } catch (err) {
-      console.error('Error deleting favorite:', err);
-    }
-  };
+  // // Delete a favorite city
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await deleteFavorite(id);
+  //     // refresh current page
+  //     fetchFavs(currentPage);
+  //   } catch (err) {
+  //     console.error('Error deleting favorite:', err);
+  //   }
+  // };
+// use callback to memoize handleDelete and avoid unnecessary re-renders
+// Without useCallback, handleDelete gets recreated on every render, which can cause unnecessary re-renders of child components receiving it as a prop.
+// With useCallback, the function keeps the same reference unless currentPage changes.  
+const handleDelete = useCallback(async (id) => {
+  try {
+    await deleteFavorite(id);
+    fetchFavs(currentPage); // refresh current page
+  } catch (err) {
+    console.error('Error deleting favorite:', err);
+  }
+}, [currentPage]);// dependencies 
+
+
 
   // Initial fetch and when page changes
   useEffect(() => {
