@@ -7,7 +7,7 @@
 
 // deployed server :
 export const config = {                       
-  serverUrl: import.meta.env.VITE_API_URL 
+  serverUrl: import.meta.env.VITE_API_URL
 };
 
 // deployed server :
