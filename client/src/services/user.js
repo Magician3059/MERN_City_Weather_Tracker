@@ -11,6 +11,7 @@ export async function registerUser(
   try { 
     // create url
     const url = `${config.serverUrl}/user/register`
+   console.log('Server URL:', config.serverUrl);
 
     // create the body
     const body = {
