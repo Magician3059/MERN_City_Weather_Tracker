@@ -31,7 +31,7 @@ const FavoritesList = () => {
         setTotalPages(data.totalPages || 1);
       }
     } catch (err) {
-      console.error('Error fetching favorites:', err);
+      toast.error('Error fetching favorites:', err);
       setFavorites([]);
       setCurrentPage(1);
       setTotalPages(1);
@@ -56,13 +56,27 @@ const FavoritesList = () => {
 const handleDelete = useCallback(async (id) => {
   try {
     await deleteFavorite(id);
-    toast.success('City removed from favorites'); // ✅ toast
-    fetchFavs(currentPage); // refresh current page
-  } catch (err) {
-    toast.error('Error deleting favorite:', err);
-  }
-}, [currentPage]);// dependencies 
+    toast.success('City removed from favorites');
 
+    // Fetch updated favorites after deletion
+    const data = await getFavorites(currentPage);
+
+    // If current page has no items, move to previous page if possible
+    if (data.data.length === 0 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else {
+      // Otherwise, update the list on the same page
+      setFavorites(data.data);
+      setTotalPages(data.totalPages || 1);
+
+      if (data.data.length === 0) {
+        toast.info('No favorite cities left on this page.');
+      }
+    }
+  } catch (err) {
+    toast.error('Error deleting favorite');
+  }
+}, [currentPage]);
 
 
   // Initial fetch and when page changes

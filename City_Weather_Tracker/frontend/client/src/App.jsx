@@ -31,6 +31,7 @@ function App() {
         </Routes>
       </div>
 
+{/*     To add Notifications using Toast we added ToastContainer  */}
       {/* 🔔 ToastContainer (placed once globally) */}
       <ToastContainer 
         position="top-right"

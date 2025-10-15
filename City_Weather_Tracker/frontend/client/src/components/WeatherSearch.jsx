@@ -1,43 +1,30 @@
-import { useState, useRef } from 'react';
-import { fetchWeather, addFavorite } from '../services/api';
+import { useState } from 'react';
+import { fetchWeather } from '../services/api';
 import { toast } from 'react-toastify';
 
 const WeatherSearch = ({ onWeather }) => {
   const [city, setCity] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const debounceRef = useRef(null);
 
   const handleSearch = async () => {
     if (!city.trim()) {
-       toast.warning('Please enter a city name');
+      toast.warning('Please enter a city name');
       return;
     }
 
     setLoading(true);
-    setError('');
 
     try {
       const data = await fetchWeather(city.trim());
       onWeather(data);
-       toast.success(`Weather fetched for ${city.trim()}`);
+      toast.success(`Weather fetched for ${city.trim()}`);
+      // after successful search, clear input
+      setCity('');
     } catch {
       toast.error('City not found. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
-
-  // Optional: Debounce typing if you later enable auto-suggest
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setCity(value);
-
-    // simple debounce placeholder (300ms)
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      // future: could trigger auto-suggest API
-    }, 300);
   };
 
   const handleKeyPress = (e) => {
@@ -51,7 +38,7 @@ const WeatherSearch = ({ onWeather }) => {
         <input
           className="form-control"
           value={city}
-          onChange={handleInputChange}
+          onChange={(e) => setCity(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Enter city"
           disabled={loading}
@@ -75,7 +62,6 @@ const WeatherSearch = ({ onWeather }) => {
           )}
         </button>
       </div>
-      {error && <p className="text-danger text-center">{error}</p>}
     </div>
   );
 };
