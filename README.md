@@ -1,32 +1,72 @@
 
-# Weather & City Tracker
+## 🌤️ Weather & City Tracker
 
-## **Description**
+### **Description**
 
-A full-stack web application to check the current weather for any city and manage a list of favorite cities. Built with **React, Node.js, Express, and MongoDB**.
+A full-stack web application to check the current weather for any city and manage a list of favorite cities.
+Now includes **user authentication (Register & Login)** with secure access to favorites.
 
-**Features:**
+Built with **React, Node.js, Express, and MongoDB**.
+
+---
+
+### **✨ Features**
+
+#### 🧭 Core Features
 
 * Search for any city and view current weather data.
-* Save, view, and delete favorite cities (CRUD operations).
-* Responsive UI using **Bootstrap**.
+* Save, view, and delete favorite cities (**CRUD operations**).
+* Responsive UI using Bootstrap.
 * Backend consumes **OpenWeatherMap API** for live weather data.
 * Error handling for invalid cities and API issues.
 
+#### 🔐 Newly Added Features
+
+* **User Authentication System (Login/Register)**
+
+  * Secure registration and login using JWT (JSON Web Token).
+  * Authenticated users can save personal favorite cities.
+* **User Service Integration**
+
+  * Frontend communicates with new `/user` routes via `user.js` service.
+* **Improved Frontend Structure**
+
+  * New pages: `Login.jsx` and `Register.jsx`.
+  * Config file (`config.js`) manages environment-based API URLs.
+* **Toast Notifications & Protected Features**
+
+  * Success and error toasts via React Toastify.
+  * Favorite management restricted to logged-in users.
+
 ---
 
-## **Tech Stack**
+### **🧰 Tech Stack**
 
-* **Frontend:** React, Vite, Bootstrap, Axios, React Router, React Toastify
-* **Backend:** Node.js, Express.js, MongoDB
-* **Hosting/Deployment:**
+#### Frontend
 
-  * Frontend: [Vercel](https://mern-city-weather-tracker.vercel.app)
-  * Backend: [Render](https://mern-city-weather-tracker-backend.onrender.com)
+* React (Vite)
+* Bootstrap
+* Axios
+* React Router
+* React Toastify
+
+#### Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* JWT Authentication
 
 ---
 
-## **Project Structure**
+### **☁️ Hosting / Deployment**
+
+* **Frontend:** Vercel
+* **Backend:** Render
+
+---
+
+### **📁 Project Structure**
 
 ```
 /backend
@@ -35,29 +75,37 @@ A full-stack web application to check the current weather for any city and manag
   controllers/
   config/
   package.json
+
 /client
   package.json
   src/
     components/
     pages/
+      Login.jsx
+      Register.jsx
+    services/
+      api.js
+      user.js
+      config.js
     App.jsx
     main.jsx
   vite.config.js
+
 .gitignore
 README.md
 ```
 
 ---
 
-## **Setup & Installation (Local)**
+### **⚙️ Setup & Installation (Local)**
 
-1. Clone the repository:
+#### 1️⃣ Clone the repository
 
 ```bash
 git clone https://github.com/Magician3059/MERN_City_Weather_Tracker.git
 ```
 
-2. **Backend Setup:**
+#### 2️⃣ Backend Setup
 
 ```bash
 cd backend
@@ -70,16 +118,19 @@ cp .env.example .env
 ```
 MONGO_URI=<Your MongoDB URI>
 WEATHER_API_KEY=<Your OpenWeatherMap API key>
+JWT_SECRET=<Your Secret Key>
 PORT=5000
 ```
 
-Start backend:
+**Start backend:**
 
 ```bash
 npm run dev
 ```
 
-3. **Frontend Setup:**
+---
+
+#### 3️⃣ Frontend Setup
 
 ```bash
 cd client
@@ -93,43 +144,46 @@ cp .env.example .env
 VITE_API_URL=https://mern-city-weather-tracker-backend.onrender.com/api
 ```
 
-Start frontend:
+**Start frontend:**
 
 ```bash
 npm run dev
 ```
 
-Open in browser: `http://localhost:5173`
+**Open in browser:**
+👉 [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## **Usage**
+### **💡 Usage**
 
-1. Enter a city name in the search bar.
-2. Click **Search** to view current weather.
-3. Click **Add to Favorites** to save a city.
-4. View, delete, or refresh your favorite cities list.
+1. Register a new user or log in.
+2. Enter a city name in the search bar.
+3. View current weather details.
+4. Add to favorites (available only when logged in).
+5. View or remove cities from your favorite list.
 
 ---
 
-## **Deployment**
+### **🚀 Deployment**
 
 * **Frontend (Vercel):** [https://mern-city-weather-tracker.vercel.app](https://mern-city-weather-tracker.vercel.app)
 * **Backend (Render):** [https://mern-city-weather-tracker-backend.onrender.com](https://mern-city-weather-tracker-backend.onrender.com)
 
 ---
 
-## **Environment Variables**
+### **🔑 Environment Variables**
 
-* **Backend (`.env`)**
+#### Backend (.env)
 
 ```
 MONGO_URI=<MongoDB connection string>
 WEATHER_API_KEY=<OpenWeatherMap API key>
+JWT_SECRET=<Secret key for JWT>
 PORT=5000
 ```
 
-* **Frontend (`.env`)**
+#### Frontend (.env)
 
 ```
 VITE_API_URL=https://mern-city-weather-tracker-backend.onrender.com/api
@@ -137,14 +191,22 @@ VITE_API_URL=https://mern-city-weather-tracker-backend.onrender.com/api
 
 ---
 
-## **License**
+### **📸 (Optional) Screenshots / Demo**
 
-MIT License
+You can add app screenshots here later, e.g.:
+
+```
+/assets/screenshots/
+  login.png
+  dashboard.png
+  favorites.png
+```
 
 ---
 
-This is **ready to save directly on GitHub**.
+### **📜 License**
 
-If you want, I can also **add a "Screenshots / Demo" section** to make your README look more professional for submission.
+MIT License © 2025 Rushikesh Patil
 
+---
 
