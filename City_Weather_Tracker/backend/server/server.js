@@ -25,11 +25,11 @@ app.use('/api/weather', weatherRoutes);
 app.use('/api/favorites', favoriteRoutes);
 
 
-// Global error handler (must be last)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send(result.createErrorResult('Something went wrong!'));
-});
+// // Global error handler (must be last)
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).send(result.createErrorResult('Something went wrong!'));
+// });
 
 // Start server
 const PORT = process.env.PORT || 5000;

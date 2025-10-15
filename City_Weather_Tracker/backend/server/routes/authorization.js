@@ -11,6 +11,8 @@ export function authorization(req, res, next) {
     path.startsWith('/api/user/login') ||
     path.startsWith('/api/weather')
   ) {
+
+    console.log(path);
     return next();
   }
  // get token from header having name : authorization
