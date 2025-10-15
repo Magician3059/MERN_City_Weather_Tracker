@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = "https://mern-city-weather-tracker-backend.onrender.com/api";
 
 export const fetchWeather = async (city) => {
   const { data } = await axios.get(`${API_BASE}/weather?q=${city}`);
   return data;
 };
-
 // export const getFavorites = async () => {
 //   const { data } = await axios.get(`${API_BASE}/favorites`);
 //   return data;
