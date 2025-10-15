@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE = "https://mern-city-weather-tracker-backend.onrender.com/api";
+// const API_BASE = "https://mern-city-weather-tracker-backend.onrender.com/api";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export const fetchWeather = async (city) => {
   const { data } = await axios.get(`${API_BASE}/weather?q=${city}`);
