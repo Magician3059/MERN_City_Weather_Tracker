@@ -5,9 +5,8 @@
 //   serverUrl:'http://localhost:5000/api',
 // };
 
-// deployed server :
 export const config = {                       
-  serverUrl: import.meta.env.VITE_API_URL
+  serverUrl: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
 };
 
 // deployed server :
