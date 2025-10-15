@@ -16,7 +16,15 @@ const WeatherSearch = ({ onWeather }) => {
 
     try {
       const data = await fetchWeather(city.trim());
-      onWeather(data);
+      console.log(data);// data fetched from API
+
+      // for wrong search 
+      if(!data) {
+        toast.error('City not found. Please try again.')
+        return ; 
+      }
+     
+      onWeather(data);// set weather in parent
       toast.success(`Weather fetched for ${city.trim()}`);
       setCity('');
     } catch {

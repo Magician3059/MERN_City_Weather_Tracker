@@ -2,9 +2,15 @@ import { addFavorite } from '../services/api';
 import { toast } from 'react-toastify';
 
 const WeatherDisplay = ({ weather }) => {
-  if (!weather) return null;
-
+  if (!weather) return null; // safety check if no weather data
+  
   const handleAddFavorite = async () => {
+     const token = localStorage.getItem('token');
+    if (!token) {
+      toast.warning('Please login to add favorites');
+      return;
+    }
+
     try {
       await addFavorite(weather.name, weather.sys.country);
       toast.success(`${weather.name} added to favorites`);
