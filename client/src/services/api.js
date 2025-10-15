@@ -6,7 +6,7 @@ export const fetchWeather = async (city) => {
   
   try {
   const { data } = await axios.get(`${config.serverUrl}/weather?q=${city}`);
-  return data.data;// send back the weather data
+  return data;// send back the weather data
    } catch (err) {
   console.error(err);
   return null;
