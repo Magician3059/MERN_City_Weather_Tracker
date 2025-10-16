@@ -1,27 +1,36 @@
 import { useState } from 'react';
 import WeatherSearch from '../components/WeatherSearch';
 import WeatherDisplay from '../components/WeatherDisplay';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = () => {
   const [weather, setWeather] = useState(null);
 
-  return (
-    <div className="container mt-5">
-      <h1 className="text-center text-primary mb-4">Weather Tracker</h1>
-
-      <div className="row justify-content-center mb-4">
-        <div className="col-12 col-sm-10 col-md-8 col-lg-6">
-          <WeatherSearch onWeather={setWeather} />
-        </div>
-      </div>
-
-      {weather && (
-        <div className="row justify-content-center">
-          <div className="col-12 col-sm-10 col-md-8 col-lg-6">
-            <WeatherDisplay weather={weather} />
+ return (
+    <div>
+      <div className="container my-5 text-center">
+        <div 
+          className="card shadow-lg border-0 rounded-4 mx-auto fade-in"
+          style={{ 
+            maxWidth: '650px',
+            background: 'rgba(255,255,255,0.95)',
+            backdropFilter: 'blur(8px)',
+            boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+          }}
+        >
+          <div className="card-body p-5">
+            <WeatherSearch onWeather={setWeather} />
           </div>
         </div>
-      )}
+
+        {weather && (
+          <div className="row justify-content-center mt-4">
+            <div className="col-12 col-sm-10 col-md-8 col-lg-6">
+              <WeatherDisplay weather={weather} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

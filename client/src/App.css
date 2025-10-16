@@ -1,0 +1,17 @@
+
+/* App.css */
+
+/* Fade-in animation for cards */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Add subtle hover effect to all cards */
+.card:hover {
+  transition: all 0.3s ease;
+}
