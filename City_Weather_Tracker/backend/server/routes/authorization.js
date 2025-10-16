@@ -3,17 +3,16 @@ import { config } from '../utils/config.js';
 import result from '../utils/result.js';
 
 export function authorization(req, res, next) {
-const path = req.originalUrl;
+  const path = req.originalUrl;
 
-  // ✅ Use includes + lowercase for safety
+  // ✅ Allow public routes
   if (
-    path.toLowerCase().includes('/api/user/register') ||
-    path.toLowerCase().includes('/api/user/login') ||
-    path.toLowerCase().includes('/api/weather')
+    path.includes('/api/user/register') ||
+    path.includes('/api/user/login') ||
+    path.includes('/api/weather')
   ) {
     return next();
   }
-
 
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
