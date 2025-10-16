@@ -27,9 +27,10 @@ router.post('/register', async (req, res) => {
     });
 
     await newUser.save();
+    console.log('User registered:', newUser.email);
     res.send(result.createSuccessResult('User registered successfully'));
   } catch (error) {
-    res.send(result.createErrorResult(error.message));
+    res.send(result.createErrorResult(" failed to register " +error.message));
   }
 });
 
@@ -63,7 +64,7 @@ router.post('/login', async (req, res) => {
 
     res.send(result.createSuccessResult(body));
   } catch (error) {
-    res.send(result.createErrorResult(error.message));
+    res.send(result.createErrorResult(" failed to login " +error.message));
   }
 });
 

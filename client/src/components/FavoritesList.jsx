@@ -26,12 +26,12 @@ const FavoritesList = () => {
         setTotalPages(data.totalPages || 1);
       }
     } catch (err) {
-      toast.error('Error fetching favorites');
+      toast.error('Please login to view favorites');
       setFavorites([]);
       setCurrentPage(1);
       setTotalPages(1);
-    } finally {
-      setLoading(false);
+    } finally {        // Ensure loading is set to false after fetch attempt
+      setLoading(false); // regardless of success or failure reset loading state
     }
   };
 
