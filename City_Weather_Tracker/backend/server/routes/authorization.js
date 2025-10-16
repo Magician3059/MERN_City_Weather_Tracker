@@ -21,7 +21,7 @@ export function authorization(req, res, next) {
 
   try {
     const payload = jwt.verify(token, config.secret);
-   req.headers.userId = payload.userId;
+   req.userId = payload.userId;
     next();
   } catch (err) {
     return res.status(401).send(result.createErrorResult('Invalid Token'));
