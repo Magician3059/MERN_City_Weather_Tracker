@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 // 🔹 Profile (GET)
 router.get('/profile', async (req, res) => {
   try {
-    const user = await User.findById(req.userId)
+    const user = await User.findById(req.header.userId)
       .select('firstName lastName phoneNumber email');
     res.send(result.createSuccessResult(user));
   } catch (error) {
@@ -87,7 +87,7 @@ router.put('/profile', async (req, res) => {
     const { firstName, lastName, phone } = req.body;
 
     const user = await User.findByIdAndUpdate(
-      req.userId,
+      req.header.userId,
       { firstName, lastName, phoneNumber: phone },
       { new: true }
     ).select('firstName lastName phoneNumber email');
