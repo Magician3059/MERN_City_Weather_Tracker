@@ -18,7 +18,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-// app.use(authorization);
+app.use(authorization);
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/weather', weatherRoutes);

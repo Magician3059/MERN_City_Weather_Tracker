@@ -3,16 +3,16 @@ import { config } from '../utils/config.js';
 import result from '../utils/result.js';
 
 export function authorization(req, res, next) {
+   console.log('Original URL:', req.originalUrl);
    const path = req.originalUrl;
-
-  // allow public routes
+    
+  // Allow public routes (use includes for flexibility)
   if (
-    path.startsWith('/api/user/register') ||
-    path.startsWith('/api/user/login') ||
-    path.startsWith('/api/weather')
+    path.includes('/api/user/register') ||
+    path.includes('/api/user/login') ||
+    path.includes('/api/weather')
   ) {
-
-    console.log(path);
+    console.log('Public path:', path);
     return next();
   }
  // get token from header having name : authorization
