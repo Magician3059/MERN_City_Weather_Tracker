@@ -11,7 +11,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 
-
 // ✅ Auth context
 export const AuthContext = createContext();
 

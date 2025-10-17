@@ -37,69 +37,62 @@ const WeatherSearch = ({ onWeather }) => {
 
   return (
     <div
-      className="p-5 mx-auto text-center"
+      className="p-4 p-md-5 mx-auto text-center"
       style={{
         maxWidth: '600px',
         background: 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(12px)',
         borderRadius: '20px',
         boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease',
       }}
     >
-      <h2
-        className="fw-bold mb-4"
-        style={{
-          color: '#007bff',
-          letterSpacing: '1px',
-        }}
-      >
-        🌤️ Search Weather
-      </h2>
+      <h2 className="fw-bold mb-4 text-primary">🌤️ Search Weather</h2>
 
-      <div
-        className="d-flex justify-content-center align-items-center gap-2"
-        style={{ maxWidth: '500px', margin: '0 auto' }}
-      >
-        <input
-          className="form-control form-control-lg shadow-sm"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Enter city name"
-          disabled={loading}
-          style={{
-            borderRadius: '12px',
-            border: '1px solid #dce3f0',
-            padding: '14px 20px',
-            flex: '1',
-            fontSize: '1.1rem',
-          }}
-        />
+      {/* ✅ Bootstrap responsive grid used here */}
+      <div className="row g-3 justify-content-center">
+        <div className="col-12 col-sm-8">
+          <input
+            className="form-control form-control-lg shadow-sm w-100"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder="Enter city name"
+            disabled={loading}
+            style={{
+              borderRadius: '12px',
+              border: '1px solid #dce3f0',
+              padding: '14px 20px',
+              fontSize: '1.1rem',
+            }}
+          />
+        </div>
 
-        <button
-          className="btn btn-primary btn-lg px-4"
-          onClick={handleSearch}
-          disabled={loading}
-          style={{
-            borderRadius: '12px',
-            background: 'linear-gradient(90deg, #007bff, #00c6ff)',
-            boxShadow: '0 4px 10px rgba(0, 123, 255, 0.4)',
-            fontWeight: '500',
-            transition: '0.3s',
-          }}
-          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.05)')}
-          onMouseLeave={(e) => (e.target.style.transform = 'scale(1.0)')}
-        >
-          {loading ? (
-            <>
-              <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-              Loading...
-            </>
-          ) : (
-            'Search'
-          )}
-        </button>
+        <div className="col-12 col-sm-auto">
+          <button
+            className="btn btn-primary btn-lg w-100"
+            onClick={handleSearch}
+            disabled={loading}
+            style={{
+              borderRadius: '12px',
+              background: 'linear-gradient(90deg, #007bff, #00c6ff)',
+              boxShadow: '0 4px 10px rgba(0, 123, 255, 0.4)',
+              fontWeight: '500',
+              transition: '0.3s',
+            }}
+          >
+            {loading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                ></span>
+                Loading...
+              </>
+            ) : (
+              'Search'
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

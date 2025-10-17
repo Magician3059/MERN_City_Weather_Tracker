@@ -124,3 +124,19 @@ footer {
     padding: 8px 16px;
   }
 }
+
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.25rem !important;
+  }
+
+  .form-control-lg {
+    font-size: 0.95rem;
+  }
+
+  .btn-lg {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+}
