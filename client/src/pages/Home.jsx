@@ -9,15 +9,7 @@ const Home = () => {
  return (
     <div>
       <div className="container my-5 text-center">
-        <div 
-          className="card shadow-lg border-0 rounded-4 mx-auto fade-in"
-          style={{ 
-            maxWidth: '650px',
-            background: 'rgba(255,255,255,0.95)',
-            backdropFilter: 'blur(8px)',
-            boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
-          }}
-        >
+        <div>
           <div className="card-body p-5">
             <WeatherSearch onWeather={setWeather} />
           </div>
