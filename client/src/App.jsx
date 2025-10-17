@@ -3,10 +3,14 @@ import { Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import FavoritesList from './components/FavoritesList';
 import Login from './pages/Login';
 import Register from './pages/Register';
+
+
 
 // ✅ Auth context
 export const AuthContext = createContext();
@@ -37,79 +41,30 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/">City Weather Tracker</Link>
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarNav" 
-            aria-controls="navbarNav" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
-              </li>
-
-              {user ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/favorites">Favorites</Link>
-                  </li>
-                  <li className="nav-item">
-                    <button 
-                      className="btn btn-danger btn-sm" 
-                      onClick={handleLogout}                // logout handler            
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
+   <AuthContext.Provider value={{ user, setUser }}>
+      <div 
+        className="d-flex flex-column min-vh-100 bg-light"
+        style={{ 
+          background: 'linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)',
+          transition: 'all 0.3s ease'
+        }}
+      >
+        <Navbar user={user} setUser={setUser} />
+        <div className="container mt-5">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route 
+              path="/favorites"
+              element={<PrivateRoute user={user}><FavoritesList /></PrivateRoute>}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
         </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="container mt-5">
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          {/* Protected Route */}
-          <Route 
-            path="/favorites" 
-            element={
-              <PrivateRoute user={user}>
-                <FavoritesList />
-              </PrivateRoute>
-            } 
-          />
-
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        {/*  To make footer stick to bottom we keep it outside the div  */}
+         <Footer/> 
       </div>
 
-      {/* Toast notifications */}
       <ToastContainer 
         position="top-right"
         autoClose={2000}
@@ -124,5 +79,4 @@ function App() {
     </AuthContext.Provider>
   );
 }
-
 export default App;

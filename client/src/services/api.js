@@ -1,55 +1,71 @@
 import axios from 'axios';
-import { config } from './config';
+import {API_BASE} from '../config/url'
 
-// 🔹 Fetch weather (public)
+// const API_BASE = "https://mern-city-weather-tracker-backend.onrender.com/api";
+// const API_BASE = import.meta.env.VITE_API_URL; 
+  //  const API_BASE = 'http://localhost:5000/api'; // for local testing
+  
+
+// 🔹 Helper: Get token from localStorage
+function getAuthHeaders() {
+  const token = localStorage.getItem('token');
+  if (!token) throw new Error('Unauthorized');
+  return { Authorization: `Bearer ${token}` };
+}
+
+
+// 🔹 PUBLIC API: Fetch weather
 export const fetchWeather = async (city) => {
-  
   try {
-  const { data } = await axios.get(`${config.serverUrl}/weather?q=${city}`);
-  return data;// send back the weather data
-   } catch (err) {
-  console.error(err);
-  return null;
- }
-
+    const { data } = await axios.get(`${API_BASE}/weather?q=${city}`);
+    return data.data; // only the weather data
+  } catch (err) {
+    console.error('❌ Weather fetch failed:', err.message);
+    return null;
+  }
 };
 
-// 🔹 Get favorites (protected)
+
+// 🔹 PROTECTED API: Get favorites (with pagination)
 export const getFavorites = async (page = 1) => {
-  const token = localStorage.getItem('token');
-  if (!token) throw new Error('Unauthorized');
-
-  const res = await axios.get(`${config.serverUrl}/favorites?page=${page}`, {
-    headers: { Authorization: `Bearer ${token}` } 
-  });
-
-  if (res.data && res.data.data) return res.data; // paginated response
-  return res.data || [];
+  try {
+    const res = await axios.get(`${API_BASE}/favorites?page=${page}`, {
+      headers: getAuthHeaders(),
+    });
+    return res.data?.data ? res.data : res.data || [];
+  } catch (err) {
+    console.error('❌ Error fetching favorites:', err.message);
+    return [];
+  }
 };
 
-  
-// 🔹 Add favorite (protected)
+//---------------------------------------------------------------------
+// 🔹 PROTECTED API: Add favorite city
 export const addFavorite = async (city, country) => {
-  const token = localStorage.getItem('token');
-  if (!token) throw new Error('Unauthorized');
-
-  const { data } = await axios.post(
-    `${config.serverUrl}/favorites`,
-    { city, country },
-    { headers: { Authorization: `Bearer ${token}` } } // ✅ consistent
-  );
-
-  return data;
+  try {
+    const { data } = await axios.post(
+      `${API_BASE}/favorites`,
+      { city, country },
+      { headers: getAuthHeaders() }
+    );
+    return data;
+  } catch (err) {
+    console.error('❌ Add favorite failed:', err.message);
+    throw err;
+  }
 };
 
-// 🔹 Delete favorite (protected)
+
+// 🔹 PROTECTED API: Delete favorite city
 export const deleteFavorite = async (id) => {
-  const token = localStorage.getItem('token');
-  if (!token) throw new Error('Unauthorized');
-
-  const { data } = await axios.delete(`${config.serverUrl}/favorites/${id}`, {
-    headers: { Authorization: `Bearer ${token}` } // ✅ consistent
-  });
-
-  return data;
+  try {
+    const { data } = await axios.delete(
+      `${API_BASE}/favorites/${id}`,
+      { headers: getAuthHeaders() }
+    );
+    return data;
+  } catch (err) {
+    console.error('❌ Delete favorite failed:', err.message);
+    throw err;
+  }
 };

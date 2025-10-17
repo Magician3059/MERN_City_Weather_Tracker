@@ -27,7 +27,7 @@ function Register() {
       toast.warn('Please enter password')
     } else if (info.confirmPassword.length == 0) {
       toast.warn('Please enter password')
-    } else if (info.confirmPassword != info.password) {
+    } else if (info.confirmPassword !== info.password) {
       toast.warn('Password does not match')
     } else {
       const { firstName, lastName, email, password, phone } = info

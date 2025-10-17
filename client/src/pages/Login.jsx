@@ -22,28 +22,40 @@ function Login() {
 
     try {
       const { email, password } = info;
-      const result = await loginUser(email, password);
+      const response  = await loginUser(email, password);
+      
 
-      if (result.status === 'success') {
+      if (response.status === 'success') {
         toast.success('Welcome to my weather app!');
-
-        const { token, firstName, lastName } = result.data;
+   
+       const userData = response.data || response; // works for both nested and direct
+        console.log(" On Login we get Full Name : " + userData.firstName + " " + userData.lastName + " Token : " + userData.token);
+        // const { token, firstName, lastName,email } = response.data;
 
         // ✅ Store user info + token in localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('firstName', firstName);
-        localStorage.setItem('lastName', lastName);
-        localStorage.setItem('email', email);
+        // localStorage.setItem('token', token);
+        // localStorage.setItem('firstName', firstName);
+        // localStorage.setItem('lastName', lastName);
+        // localStorage.setItem('email', email);
+        localStorage.setItem('token', userData.token);
+        localStorage.setItem('firstName', userData.firstName);
+        localStorage.setItem('lastName', userData.lastName);
+        localStorage.setItem('email', userData.email);
 
         // ✅ Update context
-        setUser({ firstName, lastName, email });
+         // update context (fix variable references)
+  setUser({
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    email: userData.email,
+  });
 
         navigate('/');
       } else {
-        toast.error(result.error || 'Login failed');
+        toast.error(response.error || 'Login failed');
       }
     } catch (err) {
-      toast.error(err.message || 'Login error');
+      toast.error(err.response?.data?.error || err.message || 'Login error');
     }
   };
 

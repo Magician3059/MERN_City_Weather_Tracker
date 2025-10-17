@@ -53,10 +53,13 @@ router.post('/login', async (req, res) => {
     const payload = { userId: user._id };
     const token = jwt.sign(payload, config.secret);
 
-    // 4️⃣ Send back response
+    // 4️⃣ On Login : Send back response to frontend with token and user info 
     const body = {
-      token: token,
-      name: `${user.firstName} ${user.lastName}`,
+      token     : token,
+      firstName : `${user.firstName}`,
+      lastName  : `${user.lastName}`,
+      email     : `${user.email}`,
+      phone     : `${user.phoneNumber}`
     };
 
     res.send(result.createSuccessResult(body));
@@ -71,7 +74,7 @@ router.post('/login', async (req, res) => {
 // 🔹 Profile (GET)
 router.get('/profile', async (req, res) => {
   try {
-    const user = await User.findById(req.headers.userId)
+    const user = await User.findById(req.header.userId)
       .select('firstName lastName phoneNumber email');
     res.send(result.createSuccessResult(user));
   } catch (error) {
@@ -85,7 +88,7 @@ router.put('/profile', async (req, res) => {
     const { firstName, lastName, phone } = req.body;
 
     const user = await User.findByIdAndUpdate(
-      req.headers.userId,
+      req.header.userId,
       { firstName, lastName, phoneNumber: phone },
       { new: true }
     ).select('firstName lastName phoneNumber email');
